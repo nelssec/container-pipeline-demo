@@ -8,7 +8,7 @@ steps:
     displayName: 'Install npm dependencies'
     continueOnError: true
 
-  - task: QualysSCAScan@2
+  - task: qualys-ext.qualys-security-scanner.qualys-sca-scan-task.QualysSCAScan@2
     displayName: 'Qualys SCA Scan (Source)'
     inputs:
       qualysConnection: 'QualysConnection'
@@ -26,7 +26,7 @@ steps:
     workingDirectory: '$(Build.SourcesDirectory)'
     continueOnError: true
 
-  - task: QualysContainerScan@2
+  - task: qualys-ext.qualys-security-scanner.qualys-container-scan-task.QualysContainerScan@2
     displayName: 'Qualys Container Scan'
     inputs:
       qualysConnection: 'QualysConnection'
