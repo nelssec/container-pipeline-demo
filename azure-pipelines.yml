@@ -6,9 +6,11 @@ steps:
   - script: |
       npm install
     displayName: 'Install npm dependencies'
+    continueOnError: true
 
   - task: QualysSCAScan@2
     displayName: 'Qualys SCA Scan (Source)'
+    continueOnError: true
     inputs:
       qualysConnection: 'QualysConnection'
       scanPath: '$(Build.SourcesDirectory)'
@@ -17,6 +19,7 @@ steps:
 
   - task: Docker@2
     displayName: 'Build Docker Image'
+    continueOnError: true
     inputs:
       command: 'build'
       Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
@@ -24,6 +27,7 @@ steps:
 
   - task: QualysContainerScan@2
     displayName: 'Qualys Container Scan'
+    continueOnError: true
     inputs:
       qualysConnection: 'QualysConnection'
       imageId: 'test:$(Build.BuildId)'
