@@ -8,13 +8,14 @@ steps:
     displayName: 'Install npm dependencies'
     continueOnError: true
 
-  - task: QualysSCAScan@2
-    displayName: 'Qualys SCA Scan (Source)'
+  - task: QualysCodeScan@2
+    displayName: 'Qualys Code Scan (SCA)'
     inputs:
       qualysConnection: 'QualysConnection'
       scanPath: '$(Build.SourcesDirectory)'
       usePolicyEvaluation: false
-      failOnSeverity: '4'
+      failOnSeverity: 5
+      failOnCount: 2
       generateSbom: true
     continueOnError: true
 
@@ -32,5 +33,6 @@ steps:
       qualysConnection: 'QualysConnection'
       imageId: 'vulnapp:$(Build.BuildId)'
       usePolicyEvaluation: false
-      failOnSeverity: '4'
+      failOnSeverity: 5
+      failOnCount: 2
     continueOnError: true
