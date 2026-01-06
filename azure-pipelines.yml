@@ -14,8 +14,8 @@ steps:
       qualysConnection: 'QualysConnection'
       scanPath: '$(Build.SourcesDirectory)'
       usePolicyEvaluation: false
-      failOnSeverity: 5
-      failOnCount: 2
+      maxCritical: 1
+      maxHigh: -1
       generateSbom: true
     continueOnError: true
 
@@ -33,6 +33,6 @@ steps:
       qualysConnection: 'QualysConnection'
       imageId: 'vulnapp:$(Build.BuildId)'
       usePolicyEvaluation: false
-      failOnSeverity: 5
-      failOnCount: 2
+      maxCritical: 1
+      maxHigh: -1
     continueOnError: true
