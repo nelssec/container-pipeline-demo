@@ -1,0 +1,54 @@
+name: Test Qualys Actions
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  test-code-scan:
+    name: Test Code Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Qualys Code Scan
+        uses: nelssec/qualys-code-scan@v1
+        with:
+          qualys_access_token: ${{ secrets.QUALYS_ACCESS_TOKEN }}
+          qualys_pod: ${{ vars.QUALYS_POD }}
+          max_critical: -1
+          max_high: -1
+          continue_on_error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-container-scan:
+    name: Test Container Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t demo-app:${{ github.sha }} .
+
+      - name: Qualys Container Scan
+        uses: nelssec/qualys-container-scan@v1
+        with:
+          qualys_access_token: ${{ secrets.QUALYS_ACCESS_TOKEN }}
+          qualys_pod: ${{ vars.QUALYS_POD }}
+          image_id: demo-app:${{ github.sha }}
+          max_critical: -1
+          max_high: -1
+          continue_on_error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
