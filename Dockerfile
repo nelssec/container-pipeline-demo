@@ -3,6 +3,11 @@ FROM node:14.17.0-alpine3.12
 
 WORKDIR /app
 
+# Install Python and pip with vulnerable packages
+RUN apk add --no-cache python3 py3-pip
+COPY requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt --break-system-packages || pip3 install --no-cache-dir -r requirements.txt
+
 # Copy package files
 COPY package*.json ./
 
