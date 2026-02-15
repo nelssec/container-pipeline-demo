@@ -9,21 +9,13 @@ urllib3==1.24.1
 
 # Jinja2 with template injection vulnerabilities
 jinja2==2.10
+markupsafe==1.1.0
 
 # PyYAML with arbitrary code execution vulnerability
 pyyaml==5.1
 
 # Pillow with multiple CVEs
 pillow==6.2.0
-
-# Django with known vulnerabilities
-django==2.2.0
-
-# Cryptography with vulnerabilities
-cryptography==2.3
-
-# SQLAlchemy older version
-sqlalchemy==1.2.0
 
 # Paramiko SSH library with vulnerabilities
 paramiko==2.4.0
