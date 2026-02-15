@@ -20,7 +20,7 @@ steps:
     continueOnError: true
 
   - script: |
-      docker build -t vulnapp:$(Build.BuildId) -f Dockerfile .
+      docker build --no-cache -t vulnapp:$(Build.BuildId) -f Dockerfile .
       echo "Built image: vulnapp:$(Build.BuildId)"
       docker images | grep vulnapp
     displayName: 'Build Docker Image'
