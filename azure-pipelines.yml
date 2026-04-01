@@ -8,10 +8,10 @@ steps:
     displayName: 'Install npm dependencies'
     continueOnError: true
 
-  - task: qualys-ext.qualys-security-scanner.qualys-code-scan-task.QualysCodeScan@2
+  - task: QualysCodeScan@2
     displayName: 'Qualys Code Scan (SCA)'
     inputs:
-      qualysConnection: 'QualysConnection'
+      qualysConnection: 'QualysServiceConnection'
       scanPath: '$(Build.SourcesDirectory)'
       usePolicyEvaluation: false
       maxCritical: 1
@@ -27,10 +27,10 @@ steps:
     workingDirectory: '$(Build.SourcesDirectory)'
     continueOnError: true
 
-  - task: qualys-ext.qualys-security-scanner.qualys-container-scan-task.QualysContainerScan@2
+  - task: QualysContainerScan@2
     displayName: 'Qualys Container Scan'
     inputs:
-      qualysConnection: 'QualysConnection'
+      qualysConnection: 'QualysServiceConnection'
       imageId: 'vulnapp:$(Build.BuildId)'
       usePolicyEvaluation: false
       maxCritical: 1
